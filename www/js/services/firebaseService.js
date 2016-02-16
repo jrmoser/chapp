@@ -11,7 +11,7 @@
 
   function firebaseData($firebaseArray) {
 
-    var ref = new Firebase("https://popping-heat-2104.firebaseio.com/chatroom/");
+    var ref = new Firebase("https://firechatmlatc.firebaseio.com/");
     return $firebaseArray(ref);
 
   }
