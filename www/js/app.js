@@ -9,7 +9,6 @@
       'ChatDetailController',
       'AccountController',
       'firebaseData',
-      'starter.controllers',
       'starter.services'
   ])
 
