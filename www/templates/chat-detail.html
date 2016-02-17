@@ -10,5 +10,19 @@
     <p>
       {{chat.lastText}}
     </p>
+    <ion-list>
+      <ion-item ng-repeat="message in cdc.messages">
+        {{message.message}}
+      </ion-item>
+    </ion-list>
   </ion-content>
+  <ion-footer-bar class="bar bar-footer item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-chatbubble placeholder-icon"></i>
+      <input type="text" placeholder="Message" ng-model="cdc.message">
+    </label>
+    <button class="button button-clear" ng-click="cdc.send(cdc.message)">
+      Send
+    </button>
+  </ion-footer-bar>
 </ion-view>
