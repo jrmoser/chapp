@@ -69,7 +69,7 @@
           views: {
             'tab-chats': {
               templateUrl: 'templates/chat-detail.html',
-              controller: 'ChatDetailController'
+              controller: 'ChatDetailController as cdc'
             }
           }
         })
