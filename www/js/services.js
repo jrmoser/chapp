@@ -9,9 +9,9 @@
       // Some fake testing data
       var chats = [{
         id: 0,
-        name: 'Ben Sparrow',
-        lastText: 'You on your way?',
-        face: 'img/ben.png'
+        name: 'General Conversation',
+        desc: 'Good Morrow my gentle man. Let\'s discuss all things fancy',
+        face: 'img/octopusInTophat.jpg'
       }, {
         id: 1,
         name: 'Max Lynx',
