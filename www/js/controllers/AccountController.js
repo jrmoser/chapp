@@ -33,6 +33,23 @@
       //console.log(password);
     };
 
+    $scope.loginFB = function() {
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.authWithOAuthPopup("facebook", function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+          $scope.state = "loggedin";
+          $scope.$apply();
+        }
+      });
+    };
+
+    $scope.loginGoogle = function() {
+
+    };
+
     $scope.register = function register(firstname, lastname, email, username, password){
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.createUser(
