@@ -1,26 +1,33 @@
 (function () {
   'use strict';
 
-  angular.module('ChatDetailController', [])
+  angular.module('ChatDetailController', ['firebaseData'])
 
     .controller('ChatDetailController', ChatDetailController);
 
-  ChatDetailController.$inject = ['$scope', '$stateParams', 'Chats', 'firebaseData'];
+  ChatDetailController.$inject = [
+    '$scope',
+    '$stateParams',
+    'Chats',
+    'firebaseData',
+    '$location'
+  ];
 
-  function ChatDetailController($scope, $stateParams, Chats, firebaseData) {
+  function ChatDetailController($scope,
+                                $stateParams,
+                                Chats,
+                                firebaseData
+                                ) {
 
     var cdc = this;
-    cdc.messages = firebaseData;
     cdc.send = send;
+    cdc.messages = firebaseData.getCurrentMessages();
 
     $scope.chat = Chats.get($stateParams.chatId);
 
-    function send(message) {
-      cdc.messages.$add({
-        message: message,
-        timeStamp: new Date().getTime()
-      });
-
+    function send(message, room) {
+      firebaseData.addMessage(message, room);
+      cdc.message = '';
     }
 
   }
