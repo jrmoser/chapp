@@ -12,7 +12,7 @@
     </p>
     <ion-list>
       <ion-item ng-repeat="message in cdc.messages">
-        {{message.message}}
+        {{message.content}}
       </ion-item>
     </ion-list>
   </ion-content>
@@ -21,7 +21,7 @@
       <i class="icon ion-chatbubble placeholder-icon"></i>
       <input type="text" placeholder="Message" ng-model="cdc.message">
     </label>
-    <button class="button button-clear" ng-click="cdc.send(cdc.message)">
+    <button class="button button-clear" ng-click="cdc.send(cdc.message, '{{chat.id}}')">
       Send
     </button>
   </ion-footer-bar>
