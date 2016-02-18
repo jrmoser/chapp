@@ -6,3 +6,7 @@ platforms/
 plugins/
 
 .idea/workspace.xml
+
+*.iml
+
+*.xml
