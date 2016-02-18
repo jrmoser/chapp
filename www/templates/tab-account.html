@@ -1,9 +1,87 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+    <!--Login-->
+    <div ng-if="state == 'login'">
+      <div class="bar">
+        <h1 class="title">Login</h1>
+      </div>
+      <br><br>
+      <form ng-submit="login(loginemail, loginpassword)">
+        <ion-list>
+          <div class="list">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Email</span>
+              <input type="text" placeholder="Email" ng-model="loginemail">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Password</span>
+              <input type="password" placeholder="Password" ng-model="loginpassword">
+            </label>
+          </div>
+          <button class="button button-full button-positive">
+            Submit
+          </button>
+        </ion-list>
+      </form>
+      <div class="button button-full" ng-click="loginFB()" style="background-color: #3b5998; color: white">
+        <i class="ion-social-facebook" style="font-size: large"></i>
+        Log in with Facebook
+      </div>
+      <div class="button button-full button-assertive">
+        <i class="ion-social-google" style="font-size: large"></i>
+        Log in with Google
+      </div>
+      <div class="button button-full button-balanced" ng-click="togglereg()">Create an account</div>
+    </div>
+
+    <!--Register User-->
+    <div ng-if="state == 'reg'">
+      <div class="bar">
+        <h1 class="title">New User</h1>
+      </div>
+      <br><br>
+      <form ng-submit="register(firstname, lastname, registeremail, registerusername, registerpassword)">
+        <ion-list>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">First Name</span>
+            <input type="text" placeholder="First Name" ng-model="firstname">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Last Name</span>
+            <input type="text" placeholder="Last Name" ng-model="lastname">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Email</span>
+            <input type="text" placeholder="Email" ng-model="registeremail">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Username</span>
+            <input type="text" placeholder="Username" ng-model="registerusername">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Password</span>
+            <input type="password" placeholder="Password" ng-model="registerpassword">
+          </label>
+          <button class="button button-full button-positive">
+            Submit
+          </button>
+        </form>
+      <div class="button button-balanced button-full" ng-click="togglereg()">Already have an account? Click here to sign in.</div>
+    </div>
     </ion-list>
+
+    <!--Log out -->
+    <div ng-if="state == 'loggedin'">
+      <div class="bar">
+        <h1 class="title">Log Out</h1>
+      </div>
+      <br><br>
+      <form>
+        <ion-list>
+          <button class="button button-full button-assertive" ng-click="logout()">Click here to log out</button>
+        </ion-list>
+      </form>
+    </div>
+
   </ion-content>
 </ion-view>
