@@ -9,43 +9,73 @@
 
   function AccountController($scope) {
 
-    $scope.login = function login(username, password){
-      console.log('The user was logged in! Not really. This function does nothing. :(')
-      console.log(username);
-      console.log(password);
+    //These are used to toggle the UI. I should probably use Switch and States but I don't know how to use that yet.
+    $scope.state = "login";
+
+    $scope.login = function login(email, password){
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.authWithPassword({
+        email: email,
+        password : password
+      }, function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+          $scope.state = "loggedin";
+          $scope.$apply();
+          }
+
+      });
+      //Troubleshooting console logs
+      //console.log('The user was logged in! Not really. This function does nothing. :(');
+      //console.log(username);
+      //console.log(password);
     };
 
     $scope.register = function register(firstname, lastname, email, username, password){
-      console.log('The user was registered! Not really. This function does nothing. :(');
-      console.log(firstname);
-      console.log(lastname);
-      console.log(email);
-      console.log(username);
-      console.log(password);
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.createUser(
+        {
+          username: username,
+          email: email,
+          password: password,
+          name: firstname + " " + lastname
+        },
+        function(error, userData) {
+        if (error) {
+          console.log("Error creating user:", error);
+        } else {
+          console.log("Successfully created user account with uid:", userData.uid);
+          //$scope.loggedin = true;
+          $scope.login(email, password);
+        }
+      });
+      //Troubleshooting console logs
+      //console.log('The user should have been created');
+      //console.log("Name: " + firstname + " " + lastname);
+      //console.log("Email: " + email);
+      //console.log("Username: " + username);
+      //console.log("Password: " + password);
     };
-
-    $scope.reg = false;
 
     $scope.togglereg = function(){
-      if (!$scope.reg) {
-        $scope.reg = true;
+      if ($scope.state == "login"){
+        $scope.state = "reg";
       }
       else {
-        $scope.reg = false;
+        $scope.state = "login";
       }
     };
 
-    var ref = new Firebase("https://firechatmlatc.firebaseio.com");
-    ref.createUser({
-      email    : "bobtony@firebase.com",
-      password : "correcthorsebatterystaple"
-    }, function(error, userData) {
-      if (error) {
-        console.log("Error creating user:", error);
-      } else {
-        console.log("Successfully created user account with uid:", userData.uid);
-      }
-    });
+    $scope.logout = function() {
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.unauth();
+      console.log("User was logged out! (I hope)");
+      $scope.state = "login";
+
+
+    }
 
   }
 

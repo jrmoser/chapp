@@ -1,17 +1,17 @@
 <ion-view view-title="Account">
   <ion-content>
     <!--Login-->
-    <div ng-show="!reg">
+    <div ng-if="state == 'login'">
       <div class="bar">
         <h1 class="title">Login</h1>
       </div>
       <br><br>
-      <form ng-submit="login(loginusername, loginpassword)">
+      <form ng-submit="login(loginemail, loginpassword)">
         <ion-list>
           <div class="list">
             <label class="item item-input item-floating-label">
-              <span class="input-label">Username</span>
-              <input type="text" placeholder="Username" ng-model="loginusername">
+              <span class="input-label">Email</span>
+              <input type="text" placeholder="Email" ng-model="loginemail">
             </label>
             <label class="item item-input item-floating-label">
               <span class="input-label">Password</span>
@@ -27,7 +27,7 @@
     </div>
 
     <!--Register User-->
-    <div ng-show="reg">
+    <div ng-if="state == 'reg'">
       <div class="bar">
         <h1 class="title">New User</h1>
       </div>
@@ -61,6 +61,19 @@
       <div class="button button-balanced button-full" ng-click="togglereg()">Already have an account? Click here to sign in.</div>
     </div>
     </ion-list>
+
+    <!--Log out -->
+    <div ng-if="state == 'loggedin'">
+      <div class="bar">
+        <h1 class="title">Log Out</h1>
+      </div>
+      <br><br>
+      <form>
+        <ion-list>
+          <button class="button button-full button-assertive" ng-click="logout()">Click here to log out</button>
+        </ion-list>
+      </form>
+    </div>
 
   </ion-content>
 </ion-view>
