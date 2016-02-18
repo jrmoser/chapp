@@ -9,8 +9,13 @@
       // Some fake testing data
       var chats = [{
         id: 0,
+<<<<<<< HEAD
         name: 'General Conversation',
         desc: 'Good Morrow my gentle man. Let\'s discuss all things fancy',
+=======
+        name: 'General Chat',
+        desc: 'Good Morrow my gentle man, welcome to the General Chat. Let\'s talk about all things fancy!',
+>>>>>>> master
         face: 'img/octopusInTophat.jpg'
       }, {
         id: 1,

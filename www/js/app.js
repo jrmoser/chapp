@@ -2,7 +2,15 @@
   'use strict';
 
 
-  angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+  angular.module('starter', [
+      'ionic',
+      'DashController',
+      'ChatsController',
+      'ChatDetailController',
+      'AccountController',
+      'firebaseData',
+      'starter.services'
+  ])
 
     .run(function ($ionicPlatform) {
       $ionicPlatform.ready(function () {
@@ -42,7 +50,7 @@
           views: {
             'tab-dash': {
               templateUrl: 'templates/tab-dash.html',
-              controller: 'DashCtrl'
+              controller: 'DashController'
             }
           }
         })
@@ -52,7 +60,7 @@
           views: {
             'tab-chats': {
               templateUrl: 'templates/tab-chats.html',
-              controller: 'ChatsCtrl'
+              controller: 'ChatsController'
             }
           }
         })
@@ -61,7 +69,7 @@
           views: {
             'tab-chats': {
               templateUrl: 'templates/chat-detail.html',
-              controller: 'ChatDetailCtrl'
+              controller: 'ChatDetailController as cdc'
             }
           }
         })
@@ -71,7 +79,7 @@
           views: {
             'tab-account': {
               templateUrl: 'templates/tab-account.html',
-              controller: 'AccountCtrl'
+              controller: 'AccountController'
             }
           }
         });
