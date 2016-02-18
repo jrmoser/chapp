@@ -7,9 +7,9 @@
 
     .service('firebaseData', firebaseData);
 
-  firebaseData.$inject = ['$firebaseArray', '$firebaseObject', '$location'];
+  firebaseData.$inject = ['$firebaseArray', '$location'];
 
-  function firebaseData($firebaseArray, $firebaseObject, $location) {
+  function firebaseData($firebaseArray, $location) {
 
     //put firebase at the top to be used in declarations area
     var ref = new Firebase("https://firechatmlatc.firebaseio.com/");
