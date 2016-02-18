@@ -10,3 +10,5 @@ plugins/
 *.iml
 
 *.xml
+
+.idea
