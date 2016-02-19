@@ -10,7 +10,7 @@
       var chats = [{
         id: 0,
         name: 'General Chat',
-        desc: 'Good Morrow my gentle man, welcome to the General Chat. Let\'s talk about all things fancy!',
+        lastText: 'Good Morrow my gentle man, welcome to the General Chat. Let\'s talk about all things fancy!',
         face: 'img/octopusInTophat.jpg'
       }, {
         id: 1,
