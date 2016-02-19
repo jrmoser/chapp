@@ -1,12 +1,12 @@
 <ion-view view-title="Account">
   <ion-content>
     <!--Login-->
-    <div ng-if="state == 'login'">
+    <div ng-if="ac.state == 'login'">
       <div class="bar">
         <h1 class="title">Login</h1>
       </div>
       <br><br>
-      <form ng-submit="login(loginemail, loginpassword)">
+      <form ng-submit="ac.login(loginemail, loginpassword)">
         <ion-list>
           <div class="list">
             <label class="item item-input item-floating-label">
@@ -23,24 +23,24 @@
           </button>
         </ion-list>
       </form>
-      <div class="button button-full" ng-click="loginFB()" style="background-color: #3b5998; color: white">
+      <div class="button button-full" ng-click="ac.loginFB()" style="background-color: #3b5998; color: white">
         <i class="ion-social-facebook" style="font-size: large"></i>
         Log in with Facebook
       </div>
-      <div class="button button-full button-assertive">
+      <div class="button button-full button-assertive" ng-click="ac.loginGoogle()">
         <i class="ion-social-google" style="font-size: large"></i>
         Log in with Google
       </div>
-      <div class="button button-full button-balanced" ng-click="togglereg()">Create an account</div>
+      <div class="button button-full button-balanced" ng-click="ac.togglereg()">Create an account</div>
     </div>
 
     <!--Register User-->
-    <div ng-if="state == 'reg'">
+    <div ng-if="ac.state == 'reg'">
       <div class="bar">
         <h1 class="title">New User</h1>
       </div>
       <br><br>
-      <form ng-submit="register(firstname, lastname, registeremail, registerusername, registerpassword)">
+      <form ng-submit="ac.register(firstname, lastname, registeremail, registerusername, registerpassword)">
         <ion-list>
           <label class="item item-input item-floating-label">
             <span class="input-label">First Name</span>
@@ -66,19 +66,19 @@
             Submit
           </button>
         </form>
-      <div class="button button-balanced button-full" ng-click="togglereg()">Already have an account? Click here to sign in.</div>
+      <div class="button button-balanced button-full" ng-click="ac.togglereg()">Already have an account? Click here to sign in.</div>
     </div>
     </ion-list>
 
     <!--Log out -->
-    <div ng-if="state == 'loggedin'">
+    <div ng-if="ac.state == 'loggedin'">
       <div class="bar">
         <h1 class="title">Log Out</h1>
       </div>
       <br><br>
       <form>
         <ion-list>
-          <button class="button button-full button-assertive" ng-click="logout()">Click here to log out</button>
+          <button class="button button-full button-assertive" ng-click="ac.logout()">Click here to log out</button>
         </ion-list>
       </form>
     </div>

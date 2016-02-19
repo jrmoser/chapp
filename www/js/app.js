@@ -79,7 +79,7 @@
           views: {
             'tab-account': {
               templateUrl: 'templates/tab-account.html',
-              controller: 'AccountController'
+              controller: 'AccountController as ac'
             }
           }
         });

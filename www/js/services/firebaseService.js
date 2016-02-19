@@ -25,6 +25,11 @@
     fb.getCurrentMessages = getCurrentMessages;
     fb.addRoom = addRoom;
     fb.addUser = addUser;
+    fb.login = login;
+    fb.FBlogin = FBlogin;
+    fb.Googlelogin = Googlelogin;
+    fb.register = register;
+    fb.logout = logout;
 
     function addMessage(message, room){
       var currentRoom = messages.child("/" + room);
@@ -55,6 +60,67 @@
       var completeURL = $location.url();
       var lastSlash = completeURL.lastIndexOf('/');
       return completeURL.substr(lastSlash);
+    }
+
+    //User authentication functions
+    function login(email, password){
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.authWithPassword({
+        email: email,
+        password : password
+      }, function(error, authData) {
+          if (error) {
+            console.log("Login Failed!", error);
+          } else {
+            console.log("Authenticated successfully with payload:", authData);
+          }
+        });
+    }
+    function FBlogin() {
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.authWithOAuthPopup("facebook", function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+        }
+      });
+    }
+
+    function Googlelogin() {
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.authWithOAuthPopup("google", function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+
+        }
+      })
+    }
+
+    function register(firstname, lastname, email, username, password){
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.createUser(
+        {
+          username: username,
+          email: email,
+          password: password,
+          name: firstname + " " + lastname
+        }, function(error, userData) {
+          if (error) {
+            console.log("Error creating user:", error);
+          } else {
+            console.log("Successfully created user account with uid:", userData.uid);
+            login(email, password);
+          }
+        });
+    }
+
+    function logout() {
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      ref.unauth();
+      console.log("User was logged out! (I hope)");
     }
 
   }
