@@ -20,28 +20,27 @@
     ac.register = register;
     ac.logout = logout;
 
-    function login() {
-      firebaseData.login();
+    function login(email, password) {
+      firebaseData.login(email, password);
       ac.state = "loggedin";
-      ac.$apply();
     }
 
 
     function FBlogin() {
+      console.log('FB Login');
       firebaseData.FBlogin();
       ac.state = "loggedin";
-      ac.$apply();
     }
 
     function Googlelogin(){
+      console.log('Google Login');
       firebaseData.Googlelogin();
       ac.state = "loggedin";
-      ac.$apply();
     }
 
 
-    function register(){
-      firebaseData.register();
+    function register(firstname, lastname, email, username, password){
+      firebaseData.register(firstname, lastname, email, username, password);
       ac.state = "loggedin";
       ac.$apply();
     }

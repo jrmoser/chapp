@@ -76,6 +76,7 @@
           }
         });
     }
+
     function FBlogin() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.authWithOAuthPopup("facebook", function(error, authData) {
