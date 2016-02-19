@@ -10,10 +10,15 @@
     <p>
       {{chat.lastText}}
     </p>
-    <ion-list>
-      <ion-item ng-repeat="message in cdc.messages">
-        {{message.content}}
-      </ion-item>
+    <ion-list ng-repeat="message in cdc.messages">
+        <div class="row" ng-class="{ 'dark' : message.from === 'me' }">
+          <span>
+            {{message.from}} ({{message.timeStamp | date:'medium'}}) : {{message.content}}
+          </span>
+          <!--<span>-->
+            <!--{{message.timeStamp | date:'medium'}}-->
+          <!--</span>-->
+      </div>
     </ion-list>
   </ion-content>
   <ion-footer-bar class="item-input-inset">
