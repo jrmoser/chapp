@@ -21,6 +21,7 @@
     var fb = this;
     fb.rooms = $firebaseArray(rooms);
     fb.users = $firebaseArray(users);
+    fb.loggedInUser = '';
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
     fb.addRoom = addRoom;
@@ -38,7 +39,7 @@
         content: message,
         timeStamp: new Date().getTime(),
         to: 'All',
-        from: 'me'
+        from: fb.loggedInUser
       });
     }
 
@@ -84,6 +85,7 @@
           console.log("Login Failed!", error);
         } else {
           console.log("Authenticated successfully with payload:", authData);
+          fb.loggedInUser = authData.facebook.displayName;
         }
       });
     }
@@ -95,9 +97,9 @@
           console.log("Login Failed!", error);
         } else {
           console.log("Authenticated successfully with payload:", authData);
-
+          fb.loggedInUser = authData.google.displayName;
         }
-      })
+      });
     }
 
     function register(firstname, lastname, email, username, password){
