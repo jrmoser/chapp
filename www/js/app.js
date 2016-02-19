@@ -9,6 +9,7 @@
       'ChatDetailController',
       'AccountController',
       'firebaseData',
+      'angularMoment',
       'starter.services'
   ])
 
