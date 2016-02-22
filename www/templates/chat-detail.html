@@ -26,7 +26,7 @@
       <i class="icon placeholder-icon ion-chatbubble" ng-class="{'ion-chatbubble-working' : cdc.message}"></i>
       <input type="text" placeholder="Message" ng-model="cdc.message">
     </label>
-    <button class="button button-clear" ng-click="cdc.send(cdc.message, '{{chat.id}}')">
+    <button class="button button-clear" ng-click="cdc.send(cdc.message)">
       Send
     </button>
   </ion-footer-bar>

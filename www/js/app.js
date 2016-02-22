@@ -61,7 +61,7 @@
           views: {
             'tab-chats': {
               templateUrl: 'templates/tab-chats.html',
-              controller: 'ChatsController'
+              controller: 'ChatsController as cc'
             }
           }
         })

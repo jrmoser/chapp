@@ -7,9 +7,9 @@
 
     .service('firebaseData', firebaseData);
 
-  firebaseData.$inject = ['$firebaseArray', '$location'];
+  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject'];
 
-  function firebaseData($firebaseArray, $location) {
+  function firebaseData($firebaseArray, $location, $firebaseObject) {
 
     //put firebase at the top to be used in declarations area
     var ref = new Firebase("https://firechatmlatc.firebaseio.com/");
@@ -19,36 +19,35 @@
 
     //Define all variables and functions usable to other controllers
     var fb = this;
+    fb.objectRef = $firebaseObject(ref);
     fb.rooms = $firebaseArray(rooms);
-    fb.users = $firebaseArray(users);
     fb.loggedInUser = '';
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
     fb.addRoom = addRoom;
-    fb.addUser = addUser;
     fb.login = login;
     fb.FBlogin = FBlogin;
     fb.Googlelogin = Googlelogin;
     fb.register = register;
     fb.logout = logout;
 
-    function addMessage(message, room){
-      var currentRoom = messages.child("/" + room);
-      fb.newmessages = $firebaseArray(currentRoom);
-      fb.newmessages.$add({
+
+    function addMessage(message){
+      var currentRoomMessages = getCurrentMessages();
+      currentRoomMessages.$add({
         content: message,
         timeStamp: new Date().getTime(),
-        to: 'All',
         from: fb.loggedInUser
       });
     }
 
-    function addRoom(){
-      //this function will allow a user to add a new room - might also allow user to PM another user
-    }
-
-    function addUser(){
-      //function to add a user
+    function addRoom(name, desc){
+      fb.objectRef.rooms[name] = {
+        name : name,
+        desc : desc,
+        face : 'img/octopusInTophat.jpg'
+      };
+      fb.objectRef.$save();
     }
 
     function getCurrentMessages() {
@@ -60,6 +59,7 @@
     function activeChat() {
       var completeURL = $location.url();
       var lastSlash = completeURL.lastIndexOf('/');
+      console.log(completeURL.substr(lastSlash));
       return completeURL.substr(lastSlash);
     }
 

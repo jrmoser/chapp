@@ -1,21 +1,23 @@
 (function () {
   'use strict';
 
-  angular.module('ChatsController', [])
+  angular.module('ChatsController', ['firebaseData'])
 
     .controller('ChatsController', ChatsController);
 
-  ChatsController.$inject = ['$scope', 'Chats'];
+  ChatsController.$inject = ['$scope', 'Chats', 'firebaseData'];
 
-  function ChatsController($scope, Chats) {
+  function ChatsController($scope, Chats, firebaseData) {
 
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
+    var cc = this;
+    cc.addRoom = addRoom;
+    cc.chatRooms = firebaseData.rooms;
+
+    function addRoom(name, desc){
+      firebaseData.addRoom(name, desc);
+      cc.desc = '';
+      cc.name = '';
+    }
 
     $scope.chats = Chats.all();
     $scope.remove = function (chat) {
