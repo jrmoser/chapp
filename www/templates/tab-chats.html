@@ -1,6 +1,5 @@
 <ion-view view-title="Chats">
   <ion-content>
-    <button type="button" ng-click="findRoom()">Find a Room</button><button type="button" ng-click="newRoom()">Open a Room</button>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
         <img ng-src="{{chat.face}}">
