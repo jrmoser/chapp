@@ -12,6 +12,7 @@
     var cdc = this;
     cdc.send = send;
     cdc.messages = firebaseData.getCurrentMessages();
+    cdc.room = firebaseData.getCurrentRoom();
 
     function send(message) {
       firebaseData.addMessage(message);

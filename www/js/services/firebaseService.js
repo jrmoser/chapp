@@ -24,6 +24,7 @@
     fb.loggedInUser = '';
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
+    fb.getCurrentRoom = getCurrentRoom;
     fb.addRoom = addRoom;
     fb.login = login;
     fb.FBlogin = FBlogin;
@@ -32,7 +33,7 @@
     fb.logout = logout;
 
 
-    function addMessage(message){
+    function addMessage(message) {
       var currentRoomMessages = getCurrentMessages();
       currentRoomMessages.$add({
         content: message,
@@ -41,46 +42,51 @@
       });
     }
 
-    function addRoom(name, desc){
+    function addRoom(name, desc) {
       fb.objectRef.rooms[name] = {
-        name : name,
-        desc : desc,
-        face : 'img/octopusInTophat.jpg'
+        name: name,
+        desc: desc,
+        face: 'img/octopusInTophat.jpg'
       };
       fb.objectRef.$save();
     }
 
     function getCurrentMessages() {
-      var temp = messages.child(activeChat());
+      var temp = messages.child(activeRoom());
       return $firebaseArray(temp);
     }
 
+    function getCurrentRoom() {
+      var temp = rooms.child(activeRoom());
+      return $firebaseObject(temp);
+    }
+
     //functions used only inside of the service go here
-    function activeChat() {
+
+    function activeRoom() {
       var completeURL = $location.url();
       var lastSlash = completeURL.lastIndexOf('/');
-      console.log(completeURL.substr(lastSlash));
       return completeURL.substr(lastSlash);
     }
 
     //User authentication functions
-    function login(email, password){
+    function login(email, password) {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.authWithPassword({
         email: email,
-        password : password
-      }, function(error, authData) {
-          if (error) {
-            console.log("Login Failed!", error);
-          } else {
-            console.log("Authenticated successfully with payload:", authData);
-          }
-        });
+        password: password
+      }, function (error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+        }
+      });
     }
 
     function FBlogin() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
-      ref.authWithOAuthPopup("facebook", function(error, authData) {
+      ref.authWithOAuthPopup("facebook", function (error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
@@ -92,7 +98,7 @@
 
     function Googlelogin() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
-      ref.authWithOAuthPopup("google", function(error, authData) {
+      ref.authWithOAuthPopup("google", function (error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
@@ -102,7 +108,7 @@
       });
     }
 
-    function register(firstname, lastname, email, username, password){
+    function register(firstname, lastname, email, username, password) {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.createUser(
         {
@@ -110,7 +116,7 @@
           email: email,
           password: password,
           name: firstname + " " + lastname
-        }, function(error, userData) {
+        }, function (error, userData) {
           if (error) {
             console.log("Error creating user:", error);
           } else {
