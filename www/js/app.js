@@ -11,7 +11,7 @@
       'firebaseData',
       'angularMoment',
       'starter.services'
-  ])
+    ])
 
     .run(function ($ionicPlatform) {
       $ionicPlatform.ready(function () {

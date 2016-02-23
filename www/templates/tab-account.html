@@ -18,7 +18,7 @@
               <input type="password" placeholder="Password" ng-model="loginpassword">
             </label>
           </div>
-          <button class="button button-full button-positive">
+          <button ng-disabled="!loginemail || !loginpassword" class="button button-full button-positive">
             Submit
           </button>
         </ion-list>
@@ -40,29 +40,34 @@
         <h1 class="title">New User</h1>
       </div>
       <br><br>
-      <form ng-submit="ac.register(firstname, lastname, registeremail, registerusername, registerpassword)">
+      <form name="regForm" ng-submit="ac.register(firstname, lastname, registeremail, registerusername, registerpassword)">
         <ion-list>
           <label class="item item-input item-floating-label">
             <span class="input-label">First Name</span>
-            <input type="text" placeholder="First Name" ng-model="firstname">
+            <input id="firstname" name="firstname" class="form-control" type="text" placeholder="First Name" ng-model="firstname" ng-model-options="{updateOn: 'blur'}">
+            <span class="assertive" ng-if="(regForm.firstname.$touched || regForm.$submitted) && !firstname">First name is required</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Last Name</span>
-            <input type="text" placeholder="Last Name" ng-model="lastname">
+            <input id="lastname" name="lastname" class="form-control" type="text" placeholder="Last Name" ng-model="lastname" ng-model-options="{updateOn: 'blur'}">
+            <span class="assertive" ng-if="(regForm.lastname.$touched || regForm.$submitted) && !lastname">ERROR</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Email</span>
-            <input type="text" placeholder="Email" ng-model="registeremail">
+            <input id="registeremail" name="registeremail" class="form-control" type="email" placeholder="Email" validateEmail ng-model="registeremail" ng-model-options="{updateOn: 'blur'}">
+            <span class="assertive" ng-hide="regForm.registeremail.$untouched || regForm.registeremail.$valid">Invalid email</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Username</span>
-            <input type="text" placeholder="Username" ng-model="registerusername">
+            <input name="registerusername" type="text" placeholder="Username" ng-model="registerusername">
+            <span class="assertive">ERROR</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Password</span>
-            <input type="password" placeholder="Password" ng-model="registerpassword">
+            <input name="registerpassword" type="password" placeholder="Password" ng-model="registerpassword">
+            <span>ERROR</span>
           </label>
-          <button class="button button-full button-positive">
+          <button ng-disabled="!firstname || !lastname || !registeremail || !registerusername || !registerpassword" class="button button-full button-positive">
             Submit
           </button>
         </form>
