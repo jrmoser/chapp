@@ -5,28 +5,17 @@
 
     .controller('ChatDetailController', ChatDetailController);
 
-  ChatDetailController.$inject = [
-    '$scope',
-    '$stateParams',
-    'Chats',
-    'firebaseData',
-    '$location'
-  ];
+  ChatDetailController.$inject = ['firebaseData'];
 
-  function ChatDetailController($scope,
-                                $stateParams,
-                                Chats,
-                                firebaseData
-                                ) {
+  function ChatDetailController(firebaseData) {
 
     var cdc = this;
     cdc.send = send;
     cdc.messages = firebaseData.getCurrentMessages();
+    cdc.room = firebaseData.getCurrentRoom();
 
-    $scope.chat = Chats.get($stateParams.chatId);
-
-    function send(message, room) {
-      firebaseData.addMessage(message, room);
+    function send(message) {
+      firebaseData.addMessage(message);
       cdc.message = '';
     }
 

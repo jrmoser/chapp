@@ -4,20 +4,18 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{chat.name}}">
+<ion-view>
+  <ion-nav-title>{{cdc.room.name}}</ion-nav-title>
   <ion-content class="padding">
-    <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
+    <img ng-src="{{cdc.room.face}}" style="width: 64px; height: 64px">
     <p>
-      {{chat.lastText}}
+      {{cdc.room.desc}}
     </p>
     <ion-list ng-repeat="message in cdc.messages">
-        <div class="row" ng-class="{ 'dark' : message.from === 'me' }">
-          <div>
-            {{message.from}} (<span am-time-ago="message.timeStamp"></span>) : {{message.content}}
-          </div>
-          <!--<span>-->
-            <!--{{message.timeStamp | date:'medium'}}-->
-          <!--</span>-->
+      <div class="row" ng-class="{ 'dark' : message.from === 'me' }">
+        <div>
+          {{message.from}} (<span am-time-ago="message.timeStamp"></span>) : {{message.content}}
+        </div>
       </div>
     </ion-list>
   </ion-content>
@@ -26,7 +24,7 @@
       <i class="icon placeholder-icon ion-chatbubble" ng-class="{'ion-chatbubble-working' : cdc.message}"></i>
       <input type="text" placeholder="Message" ng-model="cdc.message">
     </label>
-    <button class="button button-clear" ng-click="cdc.send(cdc.message, '{{chat.id}}')">
+    <button class="button button-clear" ng-click="cdc.send(cdc.message)">
       Send
     </button>
   </ion-footer-bar>

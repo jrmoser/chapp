@@ -11,7 +11,7 @@
       'firebaseData',
       'angularMoment',
       'starter.services'
-  ])
+    ])
 
     .run(function ($ionicPlatform) {
       $ionicPlatform.ready(function () {
@@ -61,7 +61,7 @@
           views: {
             'tab-chats': {
               templateUrl: 'templates/tab-chats.html',
-              controller: 'ChatsController'
+              controller: 'ChatsController as cc'
             }
           }
         })
