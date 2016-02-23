@@ -45,22 +45,22 @@
           <label class="item item-input item-floating-label">
             <span class="input-label">First Name</span>
             <input id="firstname" name="firstname" class="form-control" type="text" placeholder="First Name" ng-model="firstname" ng-model-options="{updateOn: 'blur'}">
-            <span ng-if="(regForm.firstname.$touched || regForm.$submitted) && !firstname">ERROR</span>
+            <span class="assertive" ng-if="(regForm.firstname.$touched || regForm.$submitted) && !firstname">First name is required</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Last Name</span>
-            <input  name="lastname" type="text" placeholder="Last Name" ng-model="lastname">
-            <span>ERROR</span>
+            <input id="lastname" name="lastname" class="form-control" type="text" placeholder="Last Name" ng-model="lastname" ng-model-options="{updateOn: 'blur'}">
+            <span class="assertive" ng-if="(regForm.lastname.$touched || regForm.$submitted) && !lastname">ERROR</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Email</span>
             <input id="registeremail" name="registeremail" class="form-control" type="email" placeholder="Email" validateEmail ng-model="registeremail" ng-model-options="{updateOn: 'blur'}">
-            <span ng-hide="regForm.registeremail.$untouched || regForm.registeremail.$valid" style="color: red">Invalid email</span>
+            <span class="assertive" ng-hide="regForm.registeremail.$untouched || regForm.registeremail.$valid">Invalid email</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Username</span>
             <input name="registerusername" type="text" placeholder="Username" ng-model="registerusername">
-            <span>ERROR</span>
+            <span class="assertive">ERROR</span>
           </label>
           <label class="item item-input item-floating-label">
             <span class="input-label">Password</span>
