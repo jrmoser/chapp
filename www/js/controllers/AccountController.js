@@ -19,23 +19,6 @@
       }
     };
   })
-    //.directive('isEmpty', function(){
-    //  return {
-    //    require: 'ngmodel',
-    //    link: function($scope, element, attrs, ctrl){
-    //      ctrl.$validators.isEmpty = function(modelValue, viewValue){
-    //        if (viewValue == ''){
-    //          console.log("ERROR");
-    //          return false;
-    //        }
-    //        else{
-    //          return true;
-    //        }
-    //      }
-    //    }
-    //  }
-    //})
-
     .controller('AccountController', AccountController);
 
   AccountController.$inject = ['$scope', 'firebaseData'];
@@ -45,8 +28,15 @@
     var ac = this;
 
     //This is used to toggle the UI. I should probably use Switch and States but I don't know how to use that yet.
-    ac.state = "login";
-
+    if (firebaseData.userData == {}) {
+      ac.state = "login";
+      ac.user = "";
+    }
+    else{
+      ac.state = "loggedin";
+      ac.user = firebaseData.userData.password;
+      console.log("Logged in as " + ac.user);
+    }
     ac.login = login;
     ac.FBlogin = FBlogin;
     ac.Googlelogin = Googlelogin;
@@ -75,7 +65,6 @@
     function register(firstname, lastname, email, username, password){
       firebaseData.register(firstname, lastname, email, username, password);
       ac.state = "loggedin";
-      ac.$apply();
     }
 
     function logout(){
