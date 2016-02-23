@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('DashController', [])
+  angular.module('DashController', ["firebaseData"])
 
     .controller('DashController', DashController);
 
@@ -9,7 +9,7 @@
 
   function DashController(firebaseData) {
     var dc = this;
-    dc.messages = firebaseData.data;
+    dc.messages = firebaseData.getGeneralChat();
   }
 
 }());

@@ -36,11 +36,10 @@
         <p>What's happening now in Gen Chat</p>
       </div>
       <div class="item item-body">
-        <P>...<br>
-          ...<br>
-          ...<br>
-          ...</P>
-        <span>{{dc.messages}}</span>
+        <ion-list ng-repeat="message in dc.messages">
+          <div>
+            {{message.content}}</div>
+        </ion-list>
 
       </div>
       <div class="item item-divider">

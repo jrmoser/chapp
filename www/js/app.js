@@ -51,7 +51,7 @@
           views: {
             'tab-dash': {
               templateUrl: 'templates/tab-dash.html',
-              controller: 'DashController'
+              controller: 'DashController as dc'
             }
           }
         })
