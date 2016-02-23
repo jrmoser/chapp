@@ -75,7 +75,6 @@
     function register(firstname, lastname, email, username, password){
       firebaseData.register(firstname, lastname, email, username, password);
       ac.state = "loggedin";
-      ac.$apply();
     }
 
     function logout(){
