@@ -10,7 +10,7 @@
       'AccountController',
       'firebaseData',
       'angularMoment',
-      'starter.services'
+      'ngStorage'
     ])
 
     .run(function ($ionicPlatform) {
