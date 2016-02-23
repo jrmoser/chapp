@@ -5,10 +5,11 @@
 
     .controller('DashController', DashController);
 
-  DashController.$inject = [];
+  DashController.$inject = ['firebaseData'];
 
-  function DashController() {
-
+  function DashController(firebaseData) {
+    var dc = this;
+    dc.messages = firebaseData.data;
   }
 
 }());
