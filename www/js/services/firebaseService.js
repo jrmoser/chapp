@@ -2,14 +2,15 @@
   'use strict';
 
   angular.module('firebaseData', [
-      'firebase'
+      'firebase',
+    'ngStorage'
     ])
 
     .service('firebaseData', firebaseData);
 
-  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject'];
+  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject', '$localStorage'];
 
-  function firebaseData($firebaseArray, $location, $firebaseObject) {
+  function firebaseData($firebaseArray, $location, $firebaseObject, $localStorage) {
 
     //put firebase at the top to be used in declarations area
     var ref = new Firebase("https://firechatmlatc.firebaseio.com/");
@@ -22,6 +23,7 @@
     fb.objectRef = $firebaseObject(ref);
     fb.rooms = $firebaseArray(rooms);
     fb.loggedInUser = '';
+    fb.userData = {};
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
     fb.getCurrentRoom = getCurrentRoom;
@@ -79,6 +81,8 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
+          //fb.userData = authData;
+          saveUser(authData);
           console.log("Authenticated successfully with payload:", authData);
         }
       });
@@ -129,7 +133,16 @@
     function logout() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.unauth();
-      console.log("User was logged out! (I hope)");
+      console.log("User was logged out!");
+      delete $localStorage.user;
+    }
+
+    function saveUser(data) {
+      $localStorage.user = data;
+    }
+
+    function loadUser() {
+      fb.userData = $localStorage.user;
     }
 
   }
