@@ -132,6 +132,10 @@
       console.log("User was logged out! (I hope)");
     }
 
+    function saveLogin() {
+
+    }
+
   }
 
 }());
