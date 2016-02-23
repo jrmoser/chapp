@@ -27,14 +27,13 @@
 
     var ac = this;
 
-    //This is used to toggle the UI. I should probably use Switch and States but I don't know how to use that yet.
     if (firebaseData.userData == {}) {
       ac.state = "login";
       ac.user = "";
     }
     else{
       ac.state = "loggedin";
-      ac.user = firebaseData.userData.password;
+      ac.user = firebaseData.userData;
       console.log("Logged in as " + ac.user);
     }
     ac.login = login;
