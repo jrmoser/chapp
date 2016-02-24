@@ -86,8 +86,9 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          //fb.userData = authData;
           saveUser(authData);
+          fb.loggedInUser = authData.password.email;
+          console.log("Logged in as " + fb.loggedInUser);
           console.log("Authenticated successfully with payload:", authData);
         }
       });
@@ -99,6 +100,8 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
+          saveUser(authData);
+          fb.loggedInUser = authData.facebook.displayName;
           console.log("Authenticated successfully with payload:", authData);
           fb.loggedInUser = authData.facebook.displayName;
         }
@@ -111,8 +114,9 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          console.log("Authenticated successfully with payload:", authData);
+          saveUser(authData);
           fb.loggedInUser = authData.google.displayName;
+          console.log("Authenticated successfully with payload:", authData);
         }
       });
     }
@@ -146,9 +150,9 @@
       $localStorage.user = data;
     }
 
-    function loadUser() {
-      fb.userData = $localStorage.user;
-    }
+    //function loadUser() {
+    //  fb.userData = $localStorage.user;
+    //}
 
   }
 
