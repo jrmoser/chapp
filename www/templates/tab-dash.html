@@ -42,8 +42,29 @@
 
       </div>
       <div class="item item-divider">
-        <p>"There are <span>{{fb.loggedInUser.length}}</span> people in the Gen Chat"</p>
+        <p>"There are <span>{{fb.userData.length}}</span> people in the Gen Chat"</p>
       </div>
     </div>
   </ion-content>
 </ion-view>
+
+<!--app.controller("MainController", function($scope){-->
+<!--$scope.getRandomIndex = function(length){-->
+<!--return Math.floor(Math.random() * length);-->
+<!--}-->
+<!--$scope.quotes = [-->
+<!--{-->
+<!--value: "q1"-->
+<!--},-->
+<!--{-->
+<!--value: "q2"-->
+<!--},-->
+
+<!--];-->
+<!--});-->
+
+<!--<div ng-controller="MainController">-->
+  <!--<div ng-repeat="q in quotes">-->
+    <!--<p> {{quotes[getRandomIndex(quotes.length)].value}} </p>-->
+  <!--</div>-->
+<!--</div>-->
