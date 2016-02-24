@@ -9,25 +9,27 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <!--<button class="button button-assertive" ng-click="remove(chat)">-->
-          <!--Delete-->
+        <!--Delete-->
         <!--</button>-->
       </ion-item>
-      <ion-item>
-        <div class="row">
-          <div class="item-input item-floating-label col col-50">
-            <span class="input-label">Room Name</span>
-            <input type="text" placeholder="Room Name" ng-model="cc.name">
-          </div>
-          <div class="item-input item-floating-label col col-50">
-            <span class="input-label">Description</span>
-            <input type="text" placeholder="Description" ng-model="cc.desc">
-          </div>
-        </div>
-        <button class="button button-full button-balanced" ng-click="cc.addRoom(cc.name, cc.desc)">
-          Add chat room
-        </button>
-      </ion-item>
+
 
     </ion-list>
+
   </ion-content>
+  <ion-footer-bar>
+    <button class="button button-full button-balanced" ng-click="cc.addRoomPopup()">
+      Add chat room
+    </button>
+  </ion-footer-bar>
+  <script id="add-chat-room.html" type="text/ng-template">
+    <div class="item-input item-floating-label">
+      <span class="input-label">Name</span>
+      <input type="text" placeholder="Name" ng-model="cc.name">
+    </div>
+    <div class="item-input item-floating-label">
+      <span class="input-label">Description</span>
+      <input type="text" placeholder="Description" ng-model="cc.desc">
+    </div>
+  </script>
 </ion-view>
