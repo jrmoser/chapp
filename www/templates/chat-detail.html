@@ -18,7 +18,10 @@
   <ion-footer-bar class="item-input-inset">
     <label class="item-input-wrapper">
       <i class="icon placeholder-icon ion-chatbubble" ng-class="{'ion-chatbubble-working' : cdc.message}"></i>
-      <input type="text" placeholder="Message" ng-model="cdc.message">
+      <input type="text"
+             placeholder="Message"
+             ng-model="cdc.message"
+             ng-keypress="$event.which == 13 ? cdc.send(cdc.message) : null;">
     </label>
     <button class="button button-clear" ng-click="cdc.send(cdc.message)">
       Send
