@@ -33,6 +33,7 @@
     fb.Googlelogin = Googlelogin;
     fb.register = register;
     fb.logout = logout;
+    fb.getGeneralChat = getGeneralChat;
 
 
     function addMessage(message) {
@@ -71,6 +72,10 @@
       return completeURL.substr(lastSlash);
     }
 
+    function getGeneralChat(){
+      var temp = messages.child("/General%20Chat");
+      return $firebaseArray(temp);
+    }
     //User authentication functions
     function login(email, password) {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
