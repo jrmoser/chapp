@@ -13,14 +13,13 @@
               <span class="input-label">Email</span>
               <input id="loginemail" name="loginemail" class="form-control" required type="email" placeholder="Email" validateEmail ng-model="loginemail">
               <span class="assertive" ng-if="(loginForm.loginemail.$touched || loginForm.$submitted) && !loginemail">Valid email is required</span>
-
             </label>
             <label class="item item-input item-floating-label">
               <span class="input-label">Password</span>
               <input id="loginpassword" name="loginpassword" class="form-control" type="password" placeholder="Password" ng-model="loginpassword">
               <span class="assertive" ng-if="(loginForm.loginpassword.$touched || loginForm.$submitted) && !loginpassword">Password is required</span>
-
             </label>
+            <span ng-if="loginError" id="loginError" class="assertive">Invalid login. Email or password are incorrect.</span>
           </div>
           <button ng-disabled="!loginemail || !loginpassword" class="button button-full button-positive">
             Submit
@@ -88,7 +87,7 @@
       <div class="row responsive-sm">
         <div class="col">
           <div class="bar bar-header bar-balanced">
-            <h1 class="title">Logged in as {{ac.loggedInUser}}</h1>
+            <h1 class="title">Logged in as {{ac.username}}</h1>
           </div>
         </div>
         <div id="Z" class="col"></div>

@@ -8,9 +8,9 @@
 
     .service('firebaseData', firebaseData);
 
-  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject', '$localStorage'];
+  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject', '$localStorage', '$http'];
 
-  function firebaseData($firebaseArray, $location, $firebaseObject, $localStorage) {
+  function firebaseData($firebaseArray, $location, $firebaseObject, $localStorage, $http) {
 
     //put firebase at the top to be used in declarations area
     var ref = new Firebase("https://firechatmlatc.firebaseio.com/");
@@ -22,8 +22,7 @@
     var fb = this;
     fb.objectRef = $firebaseObject(ref);
     fb.rooms = $firebaseArray(rooms);
-    fb.loggedInUser = '';
-    fb.userData = {};
+    fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
     fb.getCurrentRoom = getCurrentRoom;
@@ -79,6 +78,7 @@
     }
     //User authentication functions
     function login(email, password) {
+      //Authenticates user by email and password
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       return ref.authWithPassword({
         email: email,
@@ -87,10 +87,16 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          fb.loggedInUser = authData.password.email;
-          console.log("Logged in as " + fb.loggedInUser);
+          fb.loggedInUser.email = authData.password.email;
+          fb.loggedInUser.uid = authData.uid;
           console.log("Authenticated successfully with payload:", authData);
-          saveUser(authData, fb.loggedInUser);
+          $http.get("https://firechatmlatc.firebaseio.com/users/" + authData.uid + ".json")   //this makes an HTTP request to GET the name and username values stored in the database
+            .then(function(response){
+            fb.loggedInUser.name = response.data.name;
+            fb.loggedInUser.username = response.data.username;
+            saveUser(fb.loggedInUser);
+            console.log("Logged in as " + fb.loggedInUser.username);
+          })
         }
       });
     }
@@ -122,18 +128,19 @@
     }
 
     function register(firstname, lastname, email, username, password) {
-      var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+      var ref = new Firebase("https://firechatmlatc.firebaseio.com/users");
       ref.createUser(
         {
-          username: username,
           email: email,
-          password: password,
-          name: firstname + " " + lastname
+          password: password
+
         }, function (error, userData) {
           if (error) {
             console.log("Error creating user:", error);
           } else {
             console.log("Successfully created user account with uid:", userData.uid);
+            var ref = new Firebase("https://firechatmlatc.firebaseio.com/users/" + userData.uid);
+            ref.set({username: username, name: firstname + " " + lastname});
             login(email, password);
           }
         });
@@ -142,24 +149,20 @@
     function logout() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.unauth();
-      console.log("User was logged out!");
-      fb.userData = {};
-      fb.loggedInUser = '';
-      delete $localStorage.user;
+      fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
       delete $localStorage.loggedInUser;
+      console.log("User was logged out!");
     }
 
-    function saveUser(data, username) {
-      $localStorage.user = data;
-      $localStorage.loggedInUser = username;
-      console.log("User information saved. " + username + "; " + data);
+    function saveUser(userdata) {
+      $localStorage.loggedInUser = userdata;
+      console.log("User information saved. " + userdata);
     }
 
     function loadUser() {
-      if ($localStorage.user && $localStorage.loggedInUser) {
-        fb.userData = $localStorage.user;
-        fb.loggedInUser = $localStorage.loggedInUser;
-        console.log("User information loaded. " + fb.loggedInUser + "; " + fb.userData);
+      if ($localStorage.userdata) {
+        fb.loggedInUser = $localStorage.userdata;
+        console.log("User information loaded. " + fb.loggedInUser);
       }
     }
 
