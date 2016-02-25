@@ -11,14 +11,17 @@
     <p>
       {{cdc.room.desc}}
     </p>
-    <div ng-repeat="message in cdc.messages" class="row" ng-class="{ 'dark' : message.from === 'me' }">
-      {{message.from}} (<span am-time-ago="message.timeStamp"></span>) : {{message.content}}
+    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }">
+      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): {{message.content}}
     </div>
   </ion-content>
   <ion-footer-bar class="item-input-inset">
     <label class="item-input-wrapper">
       <i class="icon placeholder-icon ion-chatbubble" ng-class="{'ion-chatbubble-working' : cdc.message}"></i>
-      <input type="text" placeholder="Message" ng-model="cdc.message">
+      <input type="text"
+             placeholder="Message"
+             ng-model="cdc.message"
+             ng-keypress="$event.which == 13 ? cdc.send(cdc.message) : null;">
     </label>
     <button class="button button-clear" ng-click="cdc.send(cdc.message)">
       Send
