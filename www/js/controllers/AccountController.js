@@ -33,17 +33,18 @@
     ac.Googlelogin = Googlelogin;
     ac.register = register;
     ac.logout = logout;
+    ac.loginError = false;
 
     function load(){
-      if (firebaseData.userData == {} || firebaseData.loggedInUser == '') {
+      if (firebaseData.loggedInUser.username == '') {
         ac.state = "login";
-        ac.loggedInUser = "";
+        ac.username = "";
         console.log("Not logged in :(")
       }
       else{
         ac.state = "loggedin";
-        ac.loggedInUser = firebaseData.loggedInUser;
-        console.log("Logged in as " + ac.loggedInUser);
+        ac.username = firebaseData.loggedInUser.username;
+        console.log("Logged in as " + ac.loggedInUser.username);
       }
     }
 
@@ -52,7 +53,6 @@
         ac.loggedInUser = firebaseData.loggedInUser;
         $timeout(function(){
           ac.state = "loggedin";
-          //console.log(ac.state);
         });
 
       });
@@ -65,7 +65,6 @@
         ac.loggedInUser = firebaseData.loggedInUser;
         $timeout(function(){
           ac.state = "loggedin";
-          //console.log(ac.state);
         });
       });
     }
@@ -76,7 +75,6 @@
         ac.loggedInUser = firebaseData.loggedInUser;
         $timeout(function(){
           ac.state = "loggedin";
-          //console.log(ac.state);
         });
       });
     }
