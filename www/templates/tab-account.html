@@ -85,13 +85,26 @@
       <div class="bar">
         <h1 class="title">Log Out</h1>
       </div>
-      <br><br>
-      Logged in as {{ac.user}}
-      <form>
-        <ion-list>
-          <button class="button button-full button-assertive" ng-click="ac.logout()">Click here to log out</button>
-        </ion-list>
-      </form>
+      <div class="row responsive-sm">
+        <div class="col">
+          <div class="bar bar-header bar-balanced">
+            <h1 class="title">Logged in as {{ac.loggedInUser}}</h1>
+          </div>
+        </div>
+        <div id="Z" class="col"></div>
+        <div id="A" class="col"></div>
+        <div id="C" class="col"></div>
+        <div id="H" class="col"></div>
+        <div id="WAS" class="col"></div>
+        <div id="HERE" class="col"></div>
+        <div class="col">
+          <form>
+            <ion-list>
+              <button class="button button-full button-assertive" ng-click="ac.logout()">Click here to log out</button>
+            </ion-list>
+          </form>
+        </div>
+      </div>
     </div>
 
   </ion-content>
