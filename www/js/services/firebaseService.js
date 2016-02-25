@@ -33,8 +33,9 @@
     fb.Googlelogin = Googlelogin;
     fb.register = register;
     fb.logout = logout;
+    fb.loadUser = loadUser;
     fb.getGeneralChat = getGeneralChat;
-
+    loadUser();
 
     function addMessage(message) {
       var currentRoomMessages = getCurrentMessages();
@@ -79,40 +80,43 @@
     //User authentication functions
     function login(email, password) {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
-      ref.authWithPassword({
+      return ref.authWithPassword({
         email: email,
         password: password
       }, function (error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          //fb.userData = authData;
-          saveUser(authData);
+          fb.loggedInUser = authData.password.email;
+          console.log("Logged in as " + fb.loggedInUser);
           console.log("Authenticated successfully with payload:", authData);
+          saveUser(authData, fb.loggedInUser);
         }
       });
     }
 
     function FBlogin() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
-      ref.authWithOAuthPopup("facebook", function (error, authData) {
+      return ref.authWithOAuthPopup("facebook", function (error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          console.log("Authenticated successfully with payload:", authData);
           fb.loggedInUser = authData.facebook.displayName;
-        }
+          console.log("Authenticated successfully with payload:", authData);
+          saveUser(authData, fb.loggedInUser);
+          }
       });
     }
 
     function Googlelogin() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
-      ref.authWithOAuthPopup("google", function (error, authData) {
+      return ref.authWithOAuthPopup("google", function (error, authData) {
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          console.log("Authenticated successfully with payload:", authData);
           fb.loggedInUser = authData.google.displayName;
+          console.log("Authenticated successfully with payload:", authData);
+          saveUser(authData, fb.loggedInUser);
         }
       });
     }
@@ -139,15 +143,24 @@
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.unauth();
       console.log("User was logged out!");
+      fb.userData = {};
+      fb.loggedInUser = '';
       delete $localStorage.user;
+      delete $localStorage.loggedInUser;
     }
 
-    function saveUser(data) {
+    function saveUser(data, username) {
       $localStorage.user = data;
+      $localStorage.loggedInUser = username;
+      console.log("User information saved. " + username + "; " + data);
     }
 
     function loadUser() {
-      fb.userData = $localStorage.user;
+      if ($localStorage.user && $localStorage.loggedInUser) {
+        fb.userData = $localStorage.user;
+        fb.loggedInUser = $localStorage.loggedInUser;
+        console.log("User information loaded. " + fb.loggedInUser + "; " + fb.userData);
+      }
     }
 
   }

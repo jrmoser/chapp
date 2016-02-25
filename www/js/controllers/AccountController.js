@@ -21,50 +21,71 @@
   })
     .controller('AccountController', AccountController);
 
-  AccountController.$inject = ['$scope', 'firebaseData'];
+  AccountController.$inject = ['$scope', 'firebaseData', '$timeout'];
 
-  function AccountController($scope, firebaseData) {
+  function AccountController($scope, firebaseData, $timeout) {
 
     var ac = this;
 
-    //This is used to toggle the UI. I should probably use Switch and States but I don't know how to use that yet.
-    if (firebaseData.userData == {}) {
-      ac.state = "login";
-      ac.user = "";
-    }
-    else{
-      ac.state = "loggedin";
-      ac.user = firebaseData.userData.password;
-      console.log("Logged in as " + ac.user);
-    }
+    load();
     ac.login = login;
     ac.FBlogin = FBlogin;
     ac.Googlelogin = Googlelogin;
     ac.register = register;
     ac.logout = logout;
 
+    function load(){
+      if (firebaseData.userData == {} || firebaseData.loggedInUser == '') {
+        ac.state = "login";
+        ac.loggedInUser = "";
+        console.log("Not logged in :(")
+      }
+      else{
+        ac.state = "loggedin";
+        ac.loggedInUser = firebaseData.loggedInUser;
+        console.log("Logged in as " + ac.loggedInUser);
+      }
+    }
+
     function login(email, password) {
-      firebaseData.login(email, password);
-      ac.state = "loggedin";
+      firebaseData.login(email, password).then(function(){
+        ac.loggedInUser = firebaseData.loggedInUser;
+        $timeout(function(){
+          ac.state = "loggedin";
+          //console.log(ac.state);
+        });
+
+      });
     }
 
 
     function FBlogin() {
       console.log('FB Login');
-      firebaseData.FBlogin();
-      ac.state = "loggedin";
+      firebaseData.FBlogin().then(function(){
+        ac.loggedInUser = firebaseData.loggedInUser;
+        $timeout(function(){
+          ac.state = "loggedin";
+          //console.log(ac.state);
+        });
+      });
     }
 
     function Googlelogin(){
       console.log('Google Login');
-      firebaseData.Googlelogin();
-      ac.state = "loggedin";
+      firebaseData.Googlelogin().then(function(){
+        ac.loggedInUser = firebaseData.loggedInUser;
+        $timeout(function(){
+          ac.state = "loggedin";
+          //console.log(ac.state);
+        });
+      });
     }
 
 
     function register(firstname, lastname, email, username, password){
       firebaseData.register(firstname, lastname, email, username, password);
       ac.state = "loggedin";
+      ac.loggedInUser = firebaseData.loggedInUser;
     }
 
     function logout(){
