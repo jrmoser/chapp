@@ -50,8 +50,9 @@
     }
 
     function login(email, password) {
-      firebaseData.login(email, password).then(function(){
-        ac.loggedInUser = firebaseData.loggedInUser.username;
+      firebaseData.login(email, password)
+        .then(function(){
+        ac.username = firebaseData.loggedInUser.username;
         $timeout(function(){
           ac.state = "loggedin";
         });
@@ -90,6 +91,7 @@
     function logout(){
       firebaseData.logout();
       ac.state = "login";
+      ac.username = "";
     }
 
 
