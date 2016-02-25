@@ -11,6 +11,7 @@
 
     var cdc = this;
     cdc.send = send;
+    cdc.loggedIn = firebaseData.loggedInUser.username;
     cdc.messages = firebaseData.getCurrentMessages();
     cdc.room = firebaseData.getCurrentRoom();
 
