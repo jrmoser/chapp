@@ -39,18 +39,20 @@
       if (firebaseData.loggedInUser.username == '') {
         ac.state = "login";
         ac.username = "";
-        console.log("Not logged in :(")
+        console.log("Not logged in :(");
       }
       else{
+        console.log("Already logged in :)");
         ac.state = "loggedin";
         ac.username = firebaseData.loggedInUser.username;
-        console.log("Logged in as " + ac.loggedInUser.username);
+        console.log("Logged in as " + ac.username);
       }
     }
 
     function login(email, password) {
-      firebaseData.login(email, password).then(function(){
-        ac.loggedInUser = firebaseData.loggedInUser;
+      firebaseData.login(email, password)
+        .then(function(){
+        ac.username = firebaseData.loggedInUser.username;
         $timeout(function(){
           ac.state = "loggedin";
         });
@@ -89,6 +91,7 @@
     function logout(){
       firebaseData.logout();
       ac.state = "login";
+      ac.username = "";
     }
 
 
