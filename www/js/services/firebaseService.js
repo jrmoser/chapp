@@ -149,11 +149,9 @@
     function logout() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.unauth();
-      console.log("User was logged out!");
-      fb.userData = {};
-      fb.loggedInUser = '';
-      delete $localStorage.user;
+      fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
       delete $localStorage.loggedInUser;
+      console.log("User was logged out!");
     }
 
     function saveUser(userdata) {
