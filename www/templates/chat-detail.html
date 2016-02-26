@@ -7,7 +7,7 @@
 <ion-view cache-view="false">
   <ion-nav-title>{{cdc.room.name}}</ion-nav-title>
   <!--logged in view-->
-  <ion-content class="padding" ng-hide="cdc.loggedIn == ''">
+  <ion-content class="padding" ng-hide="cdc.loggedIn == ''" scroll-glue>
     <img ng-src="{{cdc.room.face}}" style="width: 64px; height: 64px">
     <p>
       {{cdc.room.desc}}
