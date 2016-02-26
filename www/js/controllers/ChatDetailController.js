@@ -5,9 +5,9 @@
 
     .controller('ChatDetailController', ChatDetailController);
 
-  ChatDetailController.$inject = ['firebaseData'];
+  ChatDetailController.$inject = ['firebaseData', '$ionicScrollDelegate'];
 
-  function ChatDetailController(firebaseData) {
+  function ChatDetailController(firebaseData, $ionicScrollDelegate) {
 
     var cdc = this;
     cdc.send = send;
@@ -16,10 +16,15 @@
     cdc.room = firebaseData.getCurrentRoom();
 
     function send(message) {
-      firebaseData.addMessage(message);
-      cdc.message = '';
+      if (cdc.message === '') {
+        return;
+      }
+      else {
+        firebaseData.addMessage(message);
+        cdc.message = '';
+        //$ionicScrollDelegate.scrollBottom();
+      }
     }
-
   }
 
 }());
