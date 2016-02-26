@@ -53,8 +53,10 @@
       firebaseData.login(email, password)
         .then(function(){
         ac.username = firebaseData.loggedInUser.username;
+          console.log("1");
         $timeout(function(){
           ac.state = "loggedin";
+          console.log(ac.username);
         });
 
       });
