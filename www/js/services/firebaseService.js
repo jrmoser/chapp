@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module('firebaseData', [
-      'firebase',
+    'firebase',
     'ngStorage'
-    ])
+  ])
 
     .service('firebaseData', firebaseData);
 
@@ -72,10 +72,11 @@
       return completeURL.substr(lastSlash);
     }
 
-    function getGeneralChat(){
+    function getGeneralChat() {
       var temp = messages.child("/General%20Chat");
       return $firebaseArray(temp);
     }
+
     //User authentication functions
     function login(email, password) {
       //Authenticates user by email and password
@@ -89,17 +90,15 @@
         } else {
           fb.loggedInUser.email = authData.password.email;
           fb.loggedInUser.uid = authData.uid;
-          console.log("Authenticated successfully with payload:", authData);
-          $http.get("https://firechatmlatc.firebaseio.com/users/" + authData.uid + ".json")   //this makes an HTTP request to GET the name and username values stored in the database
-            .then(function(response){
-            fb.loggedInUser.name = response.data.name;
-            fb.loggedInUser.username = response.data.username;
-            saveUser(fb.loggedInUser);
-            console.log("Logged in as " + fb.loggedInUser.username);
-          })
+          fb.loggedInUser.username = fb.objectRef.users[authData.uid].username;
+          fb.loggedInUser.name = fb.objectRef.users[authData.uid].name;
+          saveUser(fb.loggedInUser);
+          console.log("Logged in as " + fb.loggedInUser.username + ": Firebase Service");
+
         }
       });
     }
+
 
     function FBlogin() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
@@ -107,10 +106,11 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          fb.loggedInUser = authData.facebook.displayName;
+          fb.loggedInUser.username = authData.facebook.displayName;
+          fb.loggedInUser.uid = authData.uid;
           console.log("Authenticated successfully with payload:", authData);
-          saveUser(authData, fb.loggedInUser);
-          }
+          saveUser(fb.loggedInUser);
+        }
       });
     }
 
@@ -120,9 +120,10 @@
         if (error) {
           console.log("Login Failed!", error);
         } else {
-          fb.loggedInUser = authData.google.displayName;
+          fb.loggedInUser.username = authData.google.displayName;
+          fb.loggedInUser.uid = authData.uid;
           console.log("Authenticated successfully with payload:", authData);
-          saveUser(authData, fb.loggedInUser);
+          saveUser(fb.loggedInUser);
         }
       });
     }
