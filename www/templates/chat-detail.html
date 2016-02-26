@@ -4,9 +4,10 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view>
+<ion-view cache-view="false">
   <ion-nav-title>{{cdc.room.name}}</ion-nav-title>
-  <ion-content class="padding">
+  <!--logged in view-->
+  <ion-content class="padding" ng-hide="cdc.loggedIn == ''">
     <img ng-src="{{cdc.room.face}}" style="width: 64px; height: 64px">
     <p>
       {{cdc.room.desc}}
@@ -15,7 +16,7 @@
       {{message.from}} (<span am-time-ago="message.timeStamp"></span>): {{message.content}}
     </div>
   </ion-content>
-  <ion-footer-bar class="item-input-inset">
+  <ion-footer-bar class="item-input-inset" ng-hide="cdc.loggedIn == ''">
     <label class="item-input-wrapper">
       <i class="icon placeholder-icon ion-chatbubble" ng-class="{'ion-chatbubble-working' : cdc.message}"></i>
       <input type="text"
@@ -27,4 +28,10 @@
       Send
     </button>
   </ion-footer-bar>
+
+  <!--show when not logged in-->
+  <ion-content ng-show="cdc.loggedIn == ''">
+    <h1 class="bar-assertive">Please <a href="#/tab/account">log in</a> to take part in our converations</h1>
+  </ion-content>
+
 </ion-view>
