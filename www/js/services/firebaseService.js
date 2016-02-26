@@ -8,9 +8,9 @@
 
     .service('firebaseData', firebaseData);
 
-  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject', '$localStorage', '$http'];
+  firebaseData.$inject = ['$firebaseArray', '$location', '$firebaseObject', '$localStorage', '$http', '$q'];
 
-  function firebaseData($firebaseArray, $location, $firebaseObject, $localStorage, $http) {
+  function firebaseData($firebaseArray, $location, $firebaseObject, $localStorage, $http, $q) {
 
     //put firebase at the top to be used in declarations area
     var ref = new Firebase("https://firechatmlatc.firebaseio.com/");
@@ -41,7 +41,7 @@
       currentRoomMessages.$add({
         content: message,
         timeStamp: new Date().getTime(),
-        from: fb.loggedInUser
+        from: fb.loggedInUser.username
       });
     }
 
