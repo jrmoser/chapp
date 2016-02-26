@@ -160,8 +160,8 @@
     }
 
     function loadUser() {
-      if ($localStorage.userdata) {
-        fb.loggedInUser = $localStorage.userdata;
+      if ($localStorage.loggedInUser) {
+        fb.loggedInUser = $localStorage.loggedInUser;
         console.log("User information loaded. " + fb.loggedInUser);
       }
     }

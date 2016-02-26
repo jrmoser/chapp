@@ -12,6 +12,7 @@
     var cc = this;
     cc.addRoom = addRoom;
     cc.addRoomPopup = addRoomPopup;
+    cc.loggedIn = firebaseData.loggedInUser.username;
     cc.chatRooms = firebaseData.rooms;
 
     function addRoom(name, desc) {
@@ -41,5 +42,6 @@
       });
     }
   }
+
 
 }());
