@@ -12,9 +12,10 @@
     <p>
       {{cdc.room.desc}}
     </p>
-    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }">
+    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" ng-focus>
       {{message.from}} (<span am-time-ago="message.timeStamp"></span>): {{message.content}}
     </div>
+    <br>
   </ion-content>
   <ion-footer-bar class="item-input-inset" ng-hide="cdc.loggedIn == ''">
     <label class="item-input-wrapper">
