@@ -5,9 +5,9 @@
 
     .controller('ChatsController', ChatsController);
 
-  ChatsController.$inject = ['$scope', '$ionicPopup', 'firebaseData'];
+  ChatsController.$inject = ['$scope', '$ionicPopup', 'firebaseData', '$http'];
 
-  function ChatsController($scope, $ionicPopup, firebaseData) {
+  function ChatsController($scope, $ionicPopup, firebaseData, $http) {
 
     var cc = this;
     cc.addRoom = addRoom;
@@ -20,6 +20,20 @@
       cc.desc = '';
       cc.name = '';
     }
+
+    cc.uploadFile = function(files) {
+      var fd = new FormData();
+      //Take the first selected file
+      fd.append("file", files[0]);
+
+      $http.post(uploadUrl, fd, {
+        withCredentials: true,
+        headers: {'Content-Type': undefined },
+        transformRequest: angular.identity
+      }).success('...all right!...').error('..no!...');
+
+    };
+
 
     function addRoomPopup() {
       $ionicPopup.prompt({
