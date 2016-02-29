@@ -12,7 +12,7 @@
     <p>
       {{cdc.room.desc}}
     </p>
-    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" ng-focus>
+    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" set-focus="$last">
       {{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
     </div>
     <br>
