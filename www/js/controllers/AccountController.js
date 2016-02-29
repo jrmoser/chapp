@@ -52,11 +52,17 @@
     function login(email, password) {
       firebaseData.login(email, password)
         .then(function () {
-          ac.username = firebaseData.loggedInUser.username;
-          $timeout(function () {
-            ac.state = "loggedin";
-          });
+          if () {
+            ac.username = firebaseData.loggedInUser.username;
+            $timeout(function () {
+              ac.state = "loggedin";
+            });
+          }
+          else {
+                  
+          }
         });
+
     }
 
 
