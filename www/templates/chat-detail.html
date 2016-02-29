@@ -13,7 +13,7 @@
       {{cdc.room.desc}}
     </p>
     <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" ng-focus>
-      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): {{message.content}}
+      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
     </div>
     <br>
   </ion-content>

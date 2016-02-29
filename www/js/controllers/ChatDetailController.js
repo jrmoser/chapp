@@ -22,7 +22,7 @@
       else {
         firebaseData.addMessage(message);
         cdc.message = '';
-        //$ionicScrollDelegate.scrollBottom();
+        $ionicScrollDelegate.scrollBottom(true);
       }
     }
   }

@@ -23,6 +23,8 @@
     fb.objectRef = $firebaseObject(ref);
     fb.rooms = $firebaseArray(rooms);
     fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
+    fb.loginError = false;
+    fb.registerError = false;
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
     fb.getCurrentRoom = getCurrentRoom;
@@ -69,11 +71,12 @@
     function activeRoom() {
       var completeURL = $location.url();
       var lastSlash = completeURL.lastIndexOf('/');
-      return completeURL.substr(lastSlash);
+      var currRoom = completeURL.substr(lastSlash);
+      return decodeURI(currRoom);
     }
 
     function getGeneralChat() {
-      var temp = messages.child("/General%20Chat");
+      var temp = messages.child("/General Chat");
       return $firebaseArray(temp);
     }
 
@@ -86,8 +89,11 @@
         password: password
       }, function (error, authData) {
         if (error) {
+          console.log("You broke it");
+          fb.loginError = true;
           console.log("Login Failed!", error);
         } else {
+          fb.loginError = false;
           fb.loggedInUser.email = authData.password.email;
           fb.loggedInUser.uid = authData.uid;
           fb.loggedInUser.username = fb.objectRef.users[authData.uid].username;
@@ -104,8 +110,10 @@
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       return ref.authWithOAuthPopup("facebook", function (error, authData) {
         if (error) {
+          fb.loginError = true;
           console.log("Login Failed!", error);
         } else {
+          fb.loginError = false;
           fb.loggedInUser.username = authData.facebook.displayName;
           fb.loggedInUser.uid = authData.uid;
           console.log("Authenticated successfully with payload:", authData);
@@ -118,8 +126,10 @@
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       return ref.authWithOAuthPopup("google", function (error, authData) {
         if (error) {
+          fb.loginError = true;
           console.log("Login Failed!", error);
         } else {
+          fb.loginError = false;
           fb.loggedInUser.username = authData.google.displayName;
           fb.loggedInUser.uid = authData.uid;
           console.log("Authenticated successfully with payload:", authData);
@@ -138,7 +148,9 @@
         }, function (error, userData) {
           if (error) {
             console.log("Error creating user:", error);
+            fb.registerError = true;
           } else {
+            fb.registerError = false;
             console.log("Successfully created user account with uid:", userData.uid);
             var ref = new Firebase("https://firechatmlatc.firebaseio.com/users/" + userData.uid);
             ref.set({username: username, name: firstname + " " + lastname});
@@ -157,7 +169,7 @@
 
     function saveUser(userdata) {
       $localStorage.loggedInUser = userdata;
-      console.log("User information saved. " + userdata);
+      console.log("User information saved. " + userdata.username);
     }
 
     function loadUser() {
