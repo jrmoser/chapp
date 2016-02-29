@@ -7,14 +7,15 @@
 <ion-view cache-view="false">
   <ion-nav-title>{{cdc.room.name}}</ion-nav-title>
   <!--logged in view-->
-  <ion-content class="padding" ng-hide="cdc.loggedIn == ''" scroll-glue>
+  <ion-content class="padding" ng-hide="cdc.loggedIn == ''">
     <img ng-src="{{cdc.room.face}}" style="width: 64px; height: 64px">
     <p>
       {{cdc.room.desc}}
     </p>
-    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }">
-      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): {{message.content}}
+    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" ng-focus>
+      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
     </div>
+    <br>
   </ion-content>
   <ion-footer-bar class="item-input-inset" ng-hide="cdc.loggedIn == ''">
     <label class="item-input-wrapper">

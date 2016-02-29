@@ -10,7 +10,6 @@
       'AccountController',
       'firebaseData',
       'angularMoment',
-      'luegg.directives',
       'ngStorage'
     ])
 
