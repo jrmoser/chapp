@@ -18,8 +18,9 @@
               <span class="input-label">Password</span>
               <input id="loginpassword" name="loginpassword" class="form-control" type="password" placeholder="Password" ng-model="loginpassword">
               <span class="assertive" ng-if="(loginForm.loginpassword.$touched || loginForm.$submitted) && !loginpassword">Password is required</span>
+              <div class="assertive" ng-if="ac.loginError" id="loginError">Email or password is incorrect.</div>
             </label>
-            <span ng-if="loginError" id="loginError" class="assertive">Invalid login. Email or password are incorrect.</span>
+
           </div>
           <button ng-disabled="!loginemail || !loginpassword" class="button button-full button-positive">
             Submit
@@ -71,6 +72,7 @@
             <input name="registerpassword" type="password" placeholder="Password" ng-model="registerpassword">
             <span class="assertive" ng-if="(regForm.registerpassword.$touched || regForm.$submitted) && !registerpassword">Password is required</span>
           </label>
+          <div class="assertive" ng-if="ac.registerError" id="registerError">Error with registration</div>
           <button ng-disabled="!firstname || !lastname || !registeremail || !registerusername || !registerpassword" class="button button-full button-positive">
             Submit
           </button>
@@ -84,27 +86,18 @@
       <div class="bar">
         <h1 class="title">Log Out</h1>
       </div>
-      <div class="row responsive-sm">
-        <div class="col">
           <div class="bar bar-header bar-balanced">
             <h1 class="title">Logged in as {{ac.username}}</h1>
           </div>
-        </div>
-        <div id="Z" class="col"></div>
-        <div id="A" class="col"></div>
-        <div id="C" class="col"></div>
-        <div id="H" class="col"></div>
-        <div id="WAS" class="col"></div>
-        <div id="HERE" class="col"></div>
-        <div class="col">
+      <br id="ZACH WAS HERE">
+      <br>
           <form>
             <ion-list>
-              <button class="button button-full button-assertive" ng-click="ac.logout()">Click here to log out</button>
+              <button class="button button-assertive button-full" ng-click="ac.logout()">Click here to log out</button>
             </ion-list>
           </form>
-        </div>
       </div>
-    </div>
+   </div>
 
   </ion-content>
 </ion-view>
