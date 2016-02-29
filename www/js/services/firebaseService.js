@@ -69,11 +69,12 @@
     function activeRoom() {
       var completeURL = $location.url();
       var lastSlash = completeURL.lastIndexOf('/');
-      return completeURL.substr(lastSlash);
+      var currRoom = completeURL.substr(lastSlash);
+      return decodeURI(currRoom);
     }
 
     function getGeneralChat() {
-      var temp = messages.child("/General%20Chat");
+      var temp = messages.child("/General Chat");
       return $firebaseArray(temp);
     }
 
