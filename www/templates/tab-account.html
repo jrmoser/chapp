@@ -18,7 +18,7 @@
               <span class="input-label">Password</span>
               <input id="loginpassword" name="loginpassword" class="form-control" type="password" placeholder="Password" ng-model="loginpassword">
               <span class="assertive" ng-if="(loginForm.loginpassword.$touched || loginForm.$submitted) && !loginpassword">Password is required</span>
-              <div class="assertive" ng-if="ac.loginError" id="loginError">Email or password is incorrect.</div>
+              <div class="assertive" ng-if="ac.loginError" id="loginError">{{ac.errorMessage}}</div>
             </label>
 
           </div>
@@ -71,8 +71,9 @@
             <span class="input-label">Password</span>
             <input name="registerpassword" type="password" placeholder="Password" ng-model="registerpassword">
             <span class="assertive" ng-if="(regForm.registerpassword.$touched || regForm.$submitted) && !registerpassword">Password is required</span>
+            <div class="assertive" ng-if="ac.registerError" id="registerError">{{ac.errorMessage}}</div>
           </label>
-          <div class="assertive" ng-if="ac.registerError" id="registerError">Error with registration</div>
+
           <button ng-disabled="!firstname || !lastname || !registeremail || !registerusername || !registerpassword" class="button button-full button-positive">
             Submit
           </button>
