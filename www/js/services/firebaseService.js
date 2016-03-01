@@ -157,13 +157,32 @@
           } else {
             fb.registerError = false;
             console.log("Successfully created user account with uid:", userData.uid);
-            var ref = new Firebase("https://firechatmlatc.firebaseio.com/users/" + userData.uid);
-            ref.set({username: username, name: firstname + " " + lastname});
             login(email, password);
+            var ref = new Firebase("https://firechatmlatc.firebaseio.com/users/" + userData.uid);
+            ref.set({username: username, name: firstname + " " + lastname, profileURL: avatarGen()});
           }
         });
     }
-
+    function avatarGen(){
+      var x = Math.floor((Math.random() * 5));
+      var avatar = '';
+      if (x === 0){
+        avatar = '../avatars/OrangeAvatar.png';
+      }
+      else if (x === 1){
+        avatar = '../avatars/BlueAvatar.png';
+      }
+      else if (x === 2){
+        avatar = '../avatars/RedAvatar.png';
+      }
+      else if (x === 3){
+        avatar = '../avatars/YellowAvatar.png';
+      }
+      else if (x === 4){
+        avatar = '../avatars/BlackAvatar.jpg';
+      }
+        return avatar;
+    }
     function logout() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.unauth();
