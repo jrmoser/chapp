@@ -25,7 +25,7 @@
     fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
     fb.loginError = false;
     fb.registerError = false;
-    fb.errorMessage = ")':";
+    fb.errorMessage = "Something has gone terribly wrong";
     fb.addMessage = addMessage;
     fb.getCurrentMessages = getCurrentMessages;
     fb.getCurrentRoom = getCurrentRoom;
@@ -144,7 +144,7 @@
 
     function register(firstname, lastname, email, username, password) {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com/users");
-     return ref.createUser(
+      return ref.createUser(
         {
           email: email,
           password: password
@@ -157,32 +157,47 @@
           } else {
             fb.registerError = false;
             console.log("Successfully created user account with uid:", userData.uid);
-            login(email, password);
-            var ref = new Firebase("https://firechatmlatc.firebaseio.com/users/" + userData.uid);
-            ref.set({username: username, name: firstname + " " + lastname, profileURL: avatarGen()});
+            var ref = new Firebase("https://firechatmlatc.firebaseio.com");
+            ref.authWithPassword({
+              email: email,
+              password: password
+            }).then(function () {
+              ref = new Firebase("https://firechatmlatc.firebaseio.com/users/" + userData.uid);
+              ref.set(
+                {
+                  username: username,
+                  name: firstname + " " + lastname,
+                  profileURL: avatarGen()
+                }
+              );//.then(function () {
+              //    login(email, password);
+              //  });
+            });
           }
         });
     }
-    function avatarGen(){
+
+    function avatarGen() {
       var x = Math.floor((Math.random() * 5));
       var avatar = '';
-      if (x === 0){
+      if (x === 0) {
         avatar = '../avatars/OrangeAvatar.png';
       }
-      else if (x === 1){
+      else if (x === 1) {
         avatar = '../avatars/BlueAvatar.png';
       }
-      else if (x === 2){
+      else if (x === 2) {
         avatar = '../avatars/RedAvatar.png';
       }
-      else if (x === 3){
+      else if (x === 3) {
         avatar = '../avatars/YellowAvatar.png';
       }
-      else if (x === 4){
+      else if (x === 4) {
         avatar = '../avatars/BlackAvatar.jpg';
       }
-        return avatar;
+      return avatar;
     }
+
     function logout() {
       var ref = new Firebase("https://firechatmlatc.firebaseio.com");
       ref.unauth();
