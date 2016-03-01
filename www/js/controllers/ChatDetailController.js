@@ -32,7 +32,7 @@
     return {
       scope: {setFocus: '='},
       link: function (scope) {
-        if (scope.setFocus) $ionicScrollDelegate.scrollBottom(true);
+        if (scope.setFocus) $ionicScrollDelegate.scrollBottom();
       }
     };
   }

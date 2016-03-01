@@ -34,6 +34,7 @@
     ac.register = register;
     ac.logout = logout;
     ac.loginError = false;
+    ac.registerError = false;
 
     function load() {
       if (firebaseData.loggedInUser.username == '') {
@@ -52,11 +53,23 @@
     function login(email, password) {
       firebaseData.login(email, password)
         .then(function () {
-          ac.username = firebaseData.loggedInUser.username;
-          $timeout(function () {
-            ac.state = "loggedin";
-          });
+          if (firebaseData.loginError == true) {
+            ac.loginError = true;
+            // :'(
+          }
+          else {
+            ac.loginError = false;
+            ac.username = firebaseData.loggedInUser.username;
+            $timeout(function () {
+              ac.state = "loggedin";
+            });
+          }
+        }, function () {
+          console.log("ERROR ERROR ERROR");
+          ac.loginError = true;
+          $scope.$apply();
         });
+
     }
 
 
