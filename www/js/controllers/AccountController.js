@@ -35,6 +35,7 @@
     ac.logout = logout;
     ac.loginError = false;
     ac.registerError = false;
+    ac.errorMessage = ":'(";
 
     function load() {
       if (firebaseData.loggedInUser.username == '') {
@@ -66,6 +67,7 @@
           }
         }, function () {
           console.log("ERROR ERROR ERROR");
+          ac.errorMessage = firebaseData.errorMessage;
           ac.loginError = true;
           $scope.$apply();
         });
@@ -95,9 +97,25 @@
 
 
     function register(firstname, lastname, email, username, password) {
-      firebaseData.register(firstname, lastname, email, username, password);
-      ac.state = "loggedin";
-      ac.loggedInUser = firebaseData.loggedInUser;
+      firebaseData.register(firstname, lastname, email, username, password)
+        .then(function () {
+          if (firebaseData.registerError == true) {
+            ac.registerError = true;
+            // :'(
+          }
+          else {
+            ac.state = "loggedin";
+            ac.loggedInUser = firebaseData.loggedInUser;
+          }
+
+        }, function () {
+          ac.errorMessage = firebaseData.errorMessage;
+          console.log(ac.errorMessage);
+          ac.registerError = true;
+          $scope.$apply();
+        });
+      //ac.state = "loggedin";
+      //ac.loggedInUser = firebaseData.loggedInUser;
     }
 
     function logout() {
