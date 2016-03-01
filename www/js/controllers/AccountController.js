@@ -95,7 +95,11 @@
 
 
     function register(firstname, lastname, email, username, password) {
-      firebaseData.register(firstname, lastname, email, username, password);
+      firebaseData.register(firstname, lastname, email, username, password)
+        //.then(function () {
+        //  ac.state = "loggedin";
+        //  ac.loggedInUser = firebaseData.loggedInUser;
+        //});
       ac.state = "loggedin";
       ac.loggedInUser = firebaseData.loggedInUser;
     }
