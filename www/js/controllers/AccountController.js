@@ -104,8 +104,7 @@
             // :'(
           }
           else {
-            ac.state = "loggedin";
-            ac.loggedInUser = firebaseData.loggedInUser;
+            login(email, password);
           }
 
         }, function () {
@@ -115,7 +114,7 @@
           $scope.$apply();
         });
       //ac.state = "loggedin";
-      //ac.loggedInUser = firebaseData.loggedInUser;
+      //ac.loggedInUser = firebaseData.loggedInUser.username;
     }
 
     function logout() {
