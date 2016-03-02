@@ -22,7 +22,7 @@
     var fb = this;
     fb.objectRef = $firebaseObject(ref);
     fb.rooms = $firebaseArray(rooms);
-    fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
+    fb.loggedInUser = {name: '', username: '', uid: '', email: '', profilePic: ''};
     fb.loginError = false;
     fb.registerError = false;
     fb.errorMessage = "Something has gone terribly wrong";
@@ -121,6 +121,7 @@
           fb.loginError = false;
           fb.loggedInUser.username = authData.facebook.displayName;
           fb.loggedInUser.uid = authData.uid;
+          fb.loggedInUser.profilePic = authData.facebook.profileImageURL;
           console.log("Authenticated successfully with payload:", authData);
           saveUser(fb.loggedInUser);
         }
@@ -138,6 +139,7 @@
           fb.loginError = false;
           fb.loggedInUser.username = authData.google.displayName;
           fb.loggedInUser.uid = authData.uid;
+          fb.loggedInUser.profilePic = authData.google.profileImageURL;
           console.log("Authenticated successfully with payload:", authData);
           saveUser(fb.loggedInUser);
         }
