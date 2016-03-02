@@ -13,7 +13,7 @@
       {{cdc.room.desc}}
     </p>
     <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" set-focus="$last">
-      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
+      <img ng-src="{{message.profilePic}}" alt="avatar" width="50px"> {{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
     </div>
     <br>
   </ion-content>
@@ -28,7 +28,7 @@
     <button class="button button-clear" ng-click="cdc.send(cdc.message)">
       Send
     </button>
-    <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+    <!--<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>-->
   </ion-footer-bar>
 
   <!--show when not logged in-->
