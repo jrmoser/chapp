@@ -173,9 +173,7 @@
                   name: firstname + " " + lastname,
                   profileURL: avatarGen()
                 }
-              );//.then(function () {
-              //    login(email, password);
-              //  });
+              );
             });
           }
         });
@@ -218,7 +216,7 @@
     function loadUser() {
       if ($localStorage.loggedInUser) {
         fb.loggedInUser = $localStorage.loggedInUser;
-        console.log("User information loaded. " + fb.loggedInUser);
+        console.log("Username: " + fb.loggedInUser.username + " ProfilePic: " + fb.loggedInUser.profilePic + " UID: " + fb.loggedInUser.uid);
       }
     }
 
