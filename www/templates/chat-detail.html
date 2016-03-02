@@ -13,7 +13,7 @@
       {{cdc.room.desc}}
     </p>
     <div class="row row-center" ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" set-focus="$last">
-      <img ng-src="{{message.profilePic}}" alt="avatar" width="50px"> <div class="col">{{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
+      <img style="border-radius: 50%" ng-src="{{message.profilePic}}" alt="avatar" width="50px"> <div class="col">{{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
     </div>
     </div>
     <br>
