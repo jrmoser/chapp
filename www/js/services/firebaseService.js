@@ -44,7 +44,8 @@
       currentRoomMessages.$add({
         content: message,
         timeStamp: new Date().getTime(),
-        from: fb.loggedInUser.username
+        from: fb.loggedInUser.username,
+        profilePic: fb.loggedInUser.profilePic
       });
     }
 
@@ -100,6 +101,7 @@
           fb.loggedInUser.uid = authData.uid;
           fb.loggedInUser.username = fb.objectRef.users[authData.uid].username;
           fb.loggedInUser.name = fb.objectRef.users[authData.uid].name;
+          fb.loggedInUser.profilePic = fb.objectRef.users[authData.uid].profileURL;
           saveUser(fb.loggedInUser);
           console.log("Logged in as " + fb.loggedInUser.username + ": Firebase Service");
 
