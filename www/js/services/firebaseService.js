@@ -53,7 +53,7 @@
       fb.objectRef.rooms[name] = {
         name: name,
         desc: desc,
-        face: 'img/octopusInTophat.jpg'
+        face: avatarGen()
       };
       fb.objectRef.$save();
     }
