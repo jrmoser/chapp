@@ -18,10 +18,7 @@
     cdc.room = firebaseData.getCurrentRoom();
 
     function send(message) {
-      if (cdc.message === '') {
-        return;
-      }
-      else {
+      if (cdc.message) {
         firebaseData.addMessage(message);
         cdc.message = '';
       }
