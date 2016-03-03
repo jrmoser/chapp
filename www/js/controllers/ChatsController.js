@@ -21,14 +21,14 @@
       cc.name = '';
     }
 
-    cc.uploadFile = function(files) {
+    cc.uploadFile = function (files) {
       var fd = new FormData();
       //Take the first selected file
       fd.append("file", files[0]);
 
       $http.post(uploadUrl, fd, {
         withCredentials: true,
-        headers: {'Content-Type': undefined },
+        headers: {'Content-Type': undefined},
         transformRequest: angular.identity
       }).success('...all right!...').error('..no!...');
 
@@ -50,7 +50,9 @@
             text: 'Add',
             type: 'button-balanced',
             onTap: function () {
-              cc.addRoom(cc.name, cc.desc);
+              if (cc.name && cc.desc) {
+                cc.addRoom(cc.name, cc.desc);
+              }
             }
           }]
       });
