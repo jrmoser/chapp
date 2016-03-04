@@ -8,12 +8,16 @@
   <ion-nav-title>{{cdc.room.name}}</ion-nav-title>
   <!--logged in view-->
   <ion-content class="padding" ng-hide="cdc.loggedIn == ''">
-    <img ng-src="{{cdc.room.face}}" style="width: 64px; height: 64px">
-    <p>
+    <img class="col col-33 col-offset-33" ng-src="{{cdc.room.face}}">
+    <h3 style="text-align: center" >
       {{cdc.room.desc}}
-    </p>
-    <div ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }" set-focus="$last">
-      {{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span ng-bind-html="message.content | linky:'_blank'"></span>
+    </h3>
+    <div class="row row-center" ng-repeat="message in cdc.messages" ng-class="{ 'dark' : message.from === 'me' }"
+         set-focus="$last">
+      <img style="border-radius: 50%" ng-src="{{message.profilePic}}" alt="avatar" width="50px">
+      <div class="col">{{message.from}} (<span am-time-ago="message.timeStamp"></span>): <span
+        ng-bind-html="message.content | linky:'_blank'"></span>
+      </div>
     </div>
     <br>
   </ion-content>
@@ -28,7 +32,7 @@
     <button class="button button-clear" ng-click="cdc.send(cdc.message)">
       Send
     </button>
-    <input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+    <!--<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>-->
   </ion-footer-bar>
 
   <!--show when not logged in-->

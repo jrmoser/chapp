@@ -27,6 +27,7 @@
 
     var ac = this;
 
+    ac.profilePic= "";
     load();
     ac.login = login;
     ac.FBlogin = FBlogin;
@@ -37,16 +38,19 @@
     ac.registerError = false;
     ac.errorMessage = ":'(";
 
+
     function load() {
       if (firebaseData.loggedInUser.username == '') {
         ac.state = "login";
         ac.username = "";
-        console.log("Not logged in :(");
+        ac.profilePic = "";
+        //console.log("Not logged in :(");
       }
       else {
-        console.log("Already logged in :)");
+        //console.log("Already logged in :)");
         ac.state = "loggedin";
         ac.username = firebaseData.loggedInUser.username;
+        ac.profilePic = firebaseData.loggedInUser.profilePic;
         console.log("Logged in as " + ac.username);
       }
     }
@@ -61,6 +65,7 @@
           else {
             ac.loginError = false;
             ac.username = firebaseData.loggedInUser.username;
+            ac.profilePic = firebaseData.loggedInUser.profilePic;
             $timeout(function () {
               ac.state = "loggedin";
             });
@@ -79,6 +84,7 @@
       console.log('FB Login');
       firebaseData.FBlogin().then(function () {
         ac.username = firebaseData.loggedInUser.username;
+        ac.profilePic = firebaseData.loggedInUser.profilePic;
         $timeout(function () {
           ac.state = "loggedin";
         });
@@ -89,6 +95,7 @@
       console.log('Google Login');
       firebaseData.Googlelogin().then(function () {
         ac.username = firebaseData.loggedInUser.username;
+        ac.profilePic = firebaseData.loggedInUser.profilePic;
         $timeout(function () {
           ac.state = "loggedin";
         });

@@ -22,7 +22,7 @@
     var fb = this;
     fb.objectRef = $firebaseObject(ref);
     fb.rooms = $firebaseArray(rooms);
-    fb.loggedInUser = {name: '', username: '', uid: '', email: ''};
+    fb.loggedInUser = {name: '', username: '', uid: '', email: '', profilePic: ''};
     fb.loginError = false;
     fb.registerError = false;
     fb.errorMessage = "Something has gone terribly wrong";
@@ -44,7 +44,8 @@
       currentRoomMessages.$add({
         content: message,
         timeStamp: new Date().getTime(),
-        from: fb.loggedInUser.username
+        from: fb.loggedInUser.username,
+        profilePic: fb.loggedInUser.profilePic
       });
     }
 
@@ -52,7 +53,7 @@
       fb.objectRef.rooms[name] = {
         name: name,
         desc: desc,
-        face: 'img/octopusInTophat.jpg'
+        face: avatarGen()
       };
       fb.objectRef.$save();
     }
@@ -100,6 +101,7 @@
           fb.loggedInUser.uid = authData.uid;
           fb.loggedInUser.username = fb.objectRef.users[authData.uid].username;
           fb.loggedInUser.name = fb.objectRef.users[authData.uid].name;
+          fb.loggedInUser.profilePic = fb.objectRef.users[authData.uid].profileURL;
           saveUser(fb.loggedInUser);
           console.log("Logged in as " + fb.loggedInUser.username + ": Firebase Service");
 
@@ -119,6 +121,7 @@
           fb.loginError = false;
           fb.loggedInUser.username = authData.facebook.displayName;
           fb.loggedInUser.uid = authData.uid;
+          fb.loggedInUser.profilePic = authData.facebook.profileImageURL;
           console.log("Authenticated successfully with payload:", authData);
           saveUser(fb.loggedInUser);
         }
@@ -136,6 +139,7 @@
           fb.loginError = false;
           fb.loggedInUser.username = authData.google.displayName;
           fb.loggedInUser.uid = authData.uid;
+          fb.loggedInUser.profilePic = authData.google.profileImageURL;
           console.log("Authenticated successfully with payload:", authData);
           saveUser(fb.loggedInUser);
         }
@@ -169,9 +173,7 @@
                   name: firstname + " " + lastname,
                   profileURL: avatarGen()
                 }
-              );//.then(function () {
-              //    login(email, password);
-              //  });
+              );
             });
           }
         });
@@ -181,19 +183,19 @@
       var x = Math.floor((Math.random() * 5));
       var avatar = '';
       if (x === 0) {
-        avatar = '../avatars/OrangeAvatar.png';
+        avatar = './avatars/OrangeAvatar.png';
       }
       else if (x === 1) {
-        avatar = '../avatars/BlueAvatar.png';
+        avatar = './avatars/BlueAvatar.png';
       }
       else if (x === 2) {
-        avatar = '../avatars/RedAvatar.png';
+        avatar = './avatars/RedAvatar.png';
       }
       else if (x === 3) {
-        avatar = '../avatars/YellowAvatar.png';
+        avatar = './avatars/YellowAvatar.png';
       }
       else if (x === 4) {
-        avatar = '../avatars/BlackAvatar.jpg';
+        avatar = './avatars/BlackAvatar.jpg';
       }
       return avatar;
     }
@@ -214,7 +216,7 @@
     function loadUser() {
       if ($localStorage.loggedInUser) {
         fb.loggedInUser = $localStorage.loggedInUser;
-        console.log("User information loaded. " + fb.loggedInUser);
+        console.log("Username: " + fb.loggedInUser.username + " ProfilePic: " + fb.loggedInUser.profilePic + " UID: " + fb.loggedInUser.uid);
       }
     }
 
