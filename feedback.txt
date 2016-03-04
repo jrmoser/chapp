@@ -6,3 +6,5 @@ worthlesskiwi: test
 tmoser: So far so good! way to go guys! this is great!
 eaglebait: this seems like it would be optimized on mobile
 Heather Moser: It looks great!
+Brett: I didn’t get a tone of time to test, but it’s good! Only noticed the occasional delay when switching chat rooms. Maybe only a second, but it stood out because the other load times were so fast.
+Aj: Compatibility appears limited to chrome is a few aspects. Chatting works as intended, UI could be more polished if more time was allocated. The app appears to be functional in the way it was intended.
